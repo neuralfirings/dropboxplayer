@@ -1,0 +1,18 @@
+<div id="audioplayer"></div>
+<script>
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+document.getElementById("audioplayer").innerHTML = '<audio id="audioplayer" controls="controls" preload=""><source src="' + getURLParameter('dropbox') + '" type="audio/mpeg"></audio>';
+</script>
+<style>
+#audioplayer {
+  margin: 0px auto;
+  width: 100%;
+  position: absolute;
+  top: 40%;
+}
+body {
+  background-color: #000;
+}
+</style>
