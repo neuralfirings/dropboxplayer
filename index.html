@@ -12,7 +12,7 @@
 
       db = getURLParameter("db")
 
-      if (db == undefined || db == "") {
+      if (db == null || db == undefined || db == "") {
         $("#generator").show()
       }
       else {
