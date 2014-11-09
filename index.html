@@ -25,6 +25,7 @@
             db = db.substring(0, l-4) + "dl=1"
           }
           $("#audioplayer").find("#mp3").attr("src", db)
+          $("#audioplayer").find("#fallbacklink").attr("href", db)
           $("#audioplayer").show()
         }
       }
@@ -89,5 +90,8 @@
 <div id="audioplayer">
   <audio controls="controls">
     <source id="mp3" src="" type="audio/mpeg">
+    <!-- fallback for non supporting browsers goes here -->
+    <p>Your browser does not support HTML5 audio, but you can still 
+       <a id="fallbacklink" href="">download the file</a>.</p>
   </audio>  
 </div>
