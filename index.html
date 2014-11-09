@@ -1,10 +1,16 @@
 <head>
   <title>Dropbox Player Hack</title>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/audiojs/audio.min.js"></script>
   <script>
     function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
     }
+
+    audiojs.events.ready(function() {
+      var as = audiojs.createAll();
+    });
+
     $(document).ready(function () {
       $("#db-link").keyup(function() {
         newlink = window.location.protocol + "//" + window.location.host + window.location.pathname + "?db=" + $(this).val()
@@ -24,8 +30,7 @@
           if (db.substring(l-4, l) == "dl=0") {
             db = db.substring(0, l-4) + "dl=1"
           }
-          $("#audioplayer").find("#mp3").attr("src", db)
-          $("#audioplayer").find("#fallbacklink").attr("href", db)
+          $("#audioplayer").find("audio").attr("src", db)
           $("#audioplayer").show()
         }
       }
@@ -88,10 +93,5 @@
   <input id="dbp-link">
 </div>
 <div id="audioplayer">
-  <audio controls="controls">
-    <source id="mp3" src="" type="audio/mpeg">
-    <!-- fallback for non supporting browsers goes here -->
-    <p>Your browser does not support HTML5 audio, but you can still 
-       <a id="fallbacklink" href="">download the file</a>.</p>
-  </audio>  
+  <audio src="" preload="auto" />
 </div>
