@@ -1,18 +1,92 @@
-<div id="audioplayer"></div>
-<script>
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-}
-document.getElementById("audioplayer").innerHTML = '<audio id="audioplayer" controls="controls" preload=""><source src="' + getURLParameter('dropbox') + '" type="audio/mpeg"></audio>';
-</script>
-<style>
-#audioplayer {
-  margin: 0px auto;
-  width: 100%;
-  position: absolute;
-  top: 40%;
-}
-body {
-  background-color: #000;
-}
-</style>
+<head>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+    function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+    }
+    $(document).ready(function () {
+      $("#db-link").keyup(function() {
+        newlink = window.location.protocol + "//" + window.location.host + window.location.pathname + "?db=" + $(this).val()
+        $("#dbp-link").val(newlink)
+      })
+
+      db = getURLParameter("db")
+
+      if (db == undefined || db == "") {
+        $("#generator").show()
+      }
+      else {
+        if (db.indexOf(".mp3") == -1) {
+          $(".alert").text("Use MP3").show()
+        } else {
+          l = db.length
+          if (db.substring(l-4, l) == "dl=0") {
+            db = db.substring(0, l-4) + "dl=1"
+          }
+          $("#audioplayer").find("#mp3").attr("src", db)
+          $("#audioplayer").show()
+        }
+      }
+    })
+  </script>
+  <style>
+    #audioplayer {
+      display: none;
+    }
+    #audioplayer audio {
+      margin: 0px auto;
+      width: 100%;
+      position: absolute;
+      top: 40%;
+
+    }
+    #generator {
+      display: none;
+    }
+    #alert {
+      display: none;
+    }
+    #generator {
+      width: 100%;
+      display: none;
+      margin: 0px auto;
+      position: absolute;
+      top: 30%;
+    }
+    #generator input {
+      width: 400px;
+      padding: 10px;
+      font-size: 14px;
+      color: #888;
+      margin: 0 auto;
+      display: block;
+    }
+    #generator label {
+      color: #AAA;
+      font-weight: bold;
+      width: 400px;
+      margin: 0 auto;
+      display: block;
+
+    }
+    body {
+      background-color: #000;
+      color: #888;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<h1 id="alert"></h1>
+<div id="generator">
+  <label>1. Paste Dropbox Link</label><br />
+  <input id="db-link" placeholder="https://www.dropbox.com/s/xxxxxxxxxxxxx/file.mp3?dl=1"><br />
+  <br />
+  <label>2. Copy Player Link</label><br />
+  <input id="dbp-link">
+</div>
+<div id="audioplayer">
+  <audio controls="controls" preload="">
+    <source id="mp3" src="" type="audio/mpeg">
+  </audio>  
+</div>
