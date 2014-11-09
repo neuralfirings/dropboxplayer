@@ -25,7 +25,7 @@
             db = db.substring(0, l-4) + "dl=1"
           }
           else if (db.substring(l-4, l) == ".mp3") {
-            db = db + "dl=1"
+            db = db + "?dl=1"
           }
           $("#audioplayer").find("#mp3").attr("src", db)
           $("#audioplayer").find("audio").attr("src", db)
